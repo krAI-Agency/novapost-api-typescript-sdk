@@ -1,0 +1,42 @@
+{
+  "name": "@novadigital/novapost-api-sdk",
+  "version": "1.0.0",
+  "description": "TypeScript SDK for Nova Post API (Node.js port of the official PHP SDK)",
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "spec.yaml",
+    "LICENSE.md",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "novapost",
+    "shipping",
+    "api",
+    "sdk",
+    "typescript"
+  ],
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.1"
+  }
+}
