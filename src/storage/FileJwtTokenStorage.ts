@@ -1,15 +1,23 @@
+import { createHash } from "node:crypto";
 import { readFile, unlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { JwtTokenStorageInterface } from "./JwtTokenStorageInterface.js";
 
-const FILE_NAME = "novapost_api_sdk_jwt_token.json";
+function defaultTokenFilePath(apiKey: string): string {
+  const hash = createHash("md5").update(apiKey, "utf8").digest("hex");
+  return join(tmpdir(), `${hash}.json`);
+}
 
 export class FileJwtTokenStorage implements JwtTokenStorageInterface {
   private readonly filePath: string;
 
-  constructor(filePath = join(tmpdir(), FILE_NAME)) {
-    this.filePath = filePath;
+  /**
+   * @param apiKey - Nova Post API key; used to derive a unique cache file name (MD5 hex + `.json` in the system temp directory).
+   * @param filePath - Optional absolute path override (for tests or custom locations).
+   */
+  constructor(apiKey: string, filePath?: string) {
+    this.filePath = filePath ?? defaultTokenFilePath(apiKey);
   }
 
   async save(token: string): Promise<void> {

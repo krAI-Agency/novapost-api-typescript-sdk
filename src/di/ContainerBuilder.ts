@@ -77,11 +77,11 @@ export class ContainerBuilder {
       );
     });
 
-    factories.set(CONTAINER_KEYS.JwtTokenStorage, () => {
+    factories.set(CONTAINER_KEYS.JwtTokenStorage, (c) => {
       if (instances.has(CONTAINER_KEYS.JwtTokenStorage)) {
         return instances.get(CONTAINER_KEYS.JwtTokenStorage);
       }
-      return new FileJwtTokenStorage();
+      return new FileJwtTokenStorage(c.getParameter<string>("apiKey"));
     });
 
     factories.set(CONTAINER_KEYS.TokenProvider, (c) => {

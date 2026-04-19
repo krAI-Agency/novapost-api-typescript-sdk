@@ -107,13 +107,13 @@ new NovaPostApiFactory().create(apiKey, undefined, true);
 
 - Network I/O is **async** (`Promise`-returning methods).
 - The default HTTP implementation is **fetch** (`FetchHttpClient`) instead of Guzzle, while preserving the same request flow (base URL, auth header injection, validation, token refresh retry).
-- JWT persistence uses the same on-disk JSON format and default temp directory file name as the PHP SDK (`novapost_api_sdk_jwt_token.json`).
+- JWT persistence uses the same on-disk JSON format as the PHP SDK; the default cache file lives in the system temp directory and is named `{md5(apiKey)}.json` so different API keys do not share a token file.
 
 ## GitHub Packages (publishing and installing)
 
 ### Publishing
 
-This repository includes [`.github/workflows/publish-github-packages.yml`](.github/workflows/publish-github-packages.yml), which publishes to the GitHub npm registry (`https://npm.pkg.github.com`).
+This repository includes `[.github/workflows/publish-github-packages.yml](.github/workflows/publish-github-packages.yml)`, which publishes to the GitHub npm registry (`https://npm.pkg.github.com`).
 
 - **On GitHub Release (recommended):** create a GitHub Release from a tag (for example `v1.0.0`). When the release is published, the workflow runs and publishes the version currently set in `package.json`.
 - **Manual run:** use **Actions → Publish to GitHub Packages → Run workflow**. You can optionally set the **dist-tag** (defaults to `latest`).
