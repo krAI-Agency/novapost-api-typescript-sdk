@@ -113,28 +113,28 @@ new NovaPostApiFactory().create(apiKey, undefined, true);
 
 ### Publishing
 
-This repository includes `[.github/workflows/publish-github-packages.yml](.github/workflows/publish-github-packages.yml)`, which publishes to the GitHub npm registry (`https://npm.pkg.github.com`).
+This repository includes [`.github/workflows/publish-github-packages.yml`](.github/workflows/publish-github-packages.yml), which publishes to the GitHub npm registry (`https://npm.pkg.github.com`).
 
 - **On GitHub Release (recommended):** create a GitHub Release from a tag (for example `v1.0.0`). When the release is published, the workflow runs and publishes the version currently set in `package.json`.
 - **Manual run:** use **Actions → Publish to GitHub Packages → Run workflow**. You can optionally set the **dist-tag** (defaults to `latest`).
 
-The workflow temporarily renames the package to `@<github-owner-lowercase>/novapost-api-sdk`, which is required because GitHub Packages scopes npm packages to the repository owner.
+The workflow temporarily renames the package to `@krai-agency/novapost-api-sdk`, which is required because GitHub Packages scopes npm packages to the repository owner ([krAI-Agency](https://github.com/krAI-Agency)).
 
 Before cutting a release, bump the `version` field in `package.json` (and commit the change) so it matches the tag you are releasing.
 
 ### Installing from GitHub Packages
 
-In the consuming repository or machine, add an `.npmrc` next to your `package.json` (replace `OWNER` with the GitHub user or organization name, lowercased):
+In the consuming repository or machine, add an `.npmrc` next to your `package.json`:
 
 ```ini
-@OWNER:registry=https://npm.pkg.github.com
+@krai-agency:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${NPM_TOKEN}
 ```
 
 Create a GitHub PAT with `read:packages` (and `repo` if the package is in a private repository), set it as `NPM_TOKEN` in your environment or CI secrets, then install:
 
 ```bash
-npm install @OWNER/novapost-api-sdk
+npm install @krai-agency/novapost-api-sdk
 ```
 
 ## Examples
