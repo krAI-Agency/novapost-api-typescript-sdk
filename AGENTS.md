@@ -10,7 +10,7 @@ This repository is the **Nova Post API TypeScript SDK** for Node.js (`@novadigit
 
 - **Runtime:** Node.js **18+** (ESM, global `fetch`).
 - **Language:** TypeScript **5.x**, **strict** mode (`strict`, `noUncheckedIndexedAccess`, `forceConsistentCasingInFileNames`).
-- **Module system:** ESM only (`"type": "module"`), `module` / `moduleResolution`: **NodeNext**.
+- **Module system:** Source and primary publish output are ESM (`"type": "module"`, `module` / `moduleResolution`: **NodeNext**). A **CommonJS** build is emitted under `dist/cjs/` with `exports.require` so Nest and other CJS runtimes can `require()` the package without `ERR_PACKAGE_PATH_NOT_EXPORTED`.
 - **Tests:** Vitest (`npm test`, `npm run test:watch`).
 - **Build:** `tsc` via `npm run build` (`tsconfig.build.json`); publishable output under `dist/`.
 
@@ -27,7 +27,7 @@ This repository is the **Nova Post API TypeScript SDK** for Node.js (`@novadigit
 - Prefer **explicit types** on public APIs and boundaries; avoid `any`; use `unknown` and narrow when handling external JSON.
 - Keep **ESM** imports (include `.js` extensions in relative imports where the codebase already does, per NodeNext resolution).
 - Do not relax compiler options in `tsconfig.json` / `tsconfig.build.json` without a strong, documented reason.
-- After substantive changes, run `**npm run build`** and `**npm test**` before considering work complete.
+- After substantive changes, run `**npm run build`** and `**npm test`** before considering work complete.
 
 ## Architecture expectations
 
