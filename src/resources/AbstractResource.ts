@@ -1,5 +1,6 @@
 import { phpHttpBuildQuery } from "../http/phpHttpBuildQuery.js";
 import type { HttpClientInterface } from "../http/HttpClientInterface.js";
+import { NOVAPOST_REQUEST_URL_PLACEHOLDER } from "../http/urlPlaceholder.js";
 
 export abstract class AbstractResource {
   constructor(protected readonly client: HttpClientInterface) {}
@@ -28,7 +29,9 @@ export abstract class AbstractResource {
       headers.set("User-Agent", "NovaPost-SDK/1.0");
     }
 
-    const request = new Request(finalUri, { method, headers, body: body ?? null });
+    // Request requires absolute URL in Node; FetchHttpClient remaps this placeholder to configured base URL.
+    const requestUrl = new URL(finalUri, NOVAPOST_REQUEST_URL_PLACEHOLDER);
+    const request = new Request(requestUrl, { method, headers, body: body ?? null });
     const response = await this.client.sendRequest(request);
     const contents = await response.text();
 

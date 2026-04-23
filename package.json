@@ -1,6 +1,6 @@
 {
-  "name": "@novadigital/novapost-api-sdk",
-  "version": "1.1.0",
+  "name": "@krai-agency/novapost-api-sdk",
+  "version": "1.1.2",
   "description": "TypeScript SDK for Nova Post API (Node.js port of the official PHP SDK)",
   "license": "GPL-3.0-or-later",
   "type": "module",

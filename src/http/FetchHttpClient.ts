@@ -1,4 +1,5 @@
 import type { HttpClientInterface } from "./HttpClientInterface.js";
+import { NOVAPOST_REQUEST_URL_PLACEHOLDER } from "./urlPlaceholder.js";
 
 export type FetchHttpClientOptions = {
   baseUrl: string;
@@ -18,7 +19,11 @@ export class FetchHttpClient implements HttpClientInterface {
   }
 
   sendRequest(request: Request): Promise<Response> {
-    const url = new URL(request.url, this.baseUrl);
+    const parsed = new URL(request.url, this.baseUrl);
+    // Relative SDK paths are materialized using placeholder origin and remapped here.
+    const url = parsed.origin === new URL(NOVAPOST_REQUEST_URL_PLACEHOLDER).origin
+      ? new URL(`${parsed.pathname}${parsed.search}${parsed.hash}`, this.baseUrl)
+      : parsed;
     const merged = new Request(url, request);
     return this.fetchFn(merged, this.defaultInit);
   }
